@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Great Number Game Assigment</title>
+    <style type="">
+        #result{
+            border: 2px solid black;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+        .tooLow{
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+        .tooLowForm{
+            /*visibility: hidden;*/
+        }
+    </style>
+</head>
+<body>
+	<div>
+		<h1>Welcome to the Great Number Game!</h1>
+        <h4>I am thinking of a number between 1 and 100</h4>
+        <h4>Take a guess!</h4>
+        <div id="result" class=tooLow>
+            Too low!
+            <form class=tooLowForm action="/">
+        	    <input type="submit" name="Submit" value="Play again!">
+            </form>
+        </div>
+        <form>
+        	<input type="text" name="guessed_number">
+        	<input type="submit" name="Submit">
+        </form>
+        </div>
+	</div>
+</body>
+</html>

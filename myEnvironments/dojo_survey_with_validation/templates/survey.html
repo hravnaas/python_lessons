@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dojo Survey Assigment</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div>
+		<form action="/submit_survery" method="post">
+			<p>Your Name: <input type="text" name="name"></p>
+			<p>Dojo Location: <input type="text" name="location"></p>
+			<p>Favorite Language: <input type="text" name="programming_language"></p>
+			<p>Comment (optional): <input type="text" name="comment"></p>
+			{% with messages = get_flashed_messages() %}
+			    {% if messages %}
+			      {% for message in messages %}
+			        <p class="error">{{message}}</p>
+			      {% endfor %}
+			    {% endif %}
+		  	{% endwith %}
+			<input type="submit" name="submit" value="Button">
+		</form>
+	</div>
+</body>
+</html>

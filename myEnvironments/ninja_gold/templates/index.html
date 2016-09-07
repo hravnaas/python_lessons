@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Ninja Gold Assigment</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	Your Gold:
+	<div id="score">
+		{{ session['gameScore'] }}
+	</div>
+	<div id="places">
+		<div>
+			<h2>Farm</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money" method="post">
+  				<input type="hidden" name="building" value="farm" />
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>Cave</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money" method="post">
+  				<input type="hidden" name="building" value="cave" />
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>House</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money" method="post">
+  				<input type="hidden" name="building" value="house" />
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>Casino</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money" method="post">
+  				<input type="hidden" name="building" value="casino" />
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+	</div>
+	<p>Activities</p>
+	<div id="activities">
+		<p class="{{ colorClass }}">{{ message }}</p>
+	</div>
+</body>
+</html>
