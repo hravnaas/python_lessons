@@ -8,7 +8,6 @@ app.secret_key = "123"
 @app.route('/')
 def startGame():
     session['gameScore'] = 0
-    session['comments'] = []
     return render_template('index.html')
 
 @app.route('/process_money', methods=['POST'])
@@ -42,8 +41,6 @@ def processMoney():
 		msg = "Entered a " + building + " and lost " + (str(newGold))[1:] + " golds... Ouch.. (" + now + ")"
 		styleClass="redText"
 
-	session["comments"].append({"class": styleClass, "message": msg})
-	
 	# Get the new score and return it
 	session['gameScore'] = getNewScore(newGold)
 	return render_template('index.html', message=msg, colorClass=styleClass)

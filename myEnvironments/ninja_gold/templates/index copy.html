@@ -46,9 +46,7 @@
 	</div>
 	<p>Activities</p>
 	<div id="activities">
-		{% for logEntry in session["comments"] %}
-			<p class="{{ logEntry.class }}">{{ logEntry.message }}</p>
-		{% endfor %}
+		<p class="{{ colorClass }}">{{ message }}</p>
 	</div>
 </body>
 </html>
