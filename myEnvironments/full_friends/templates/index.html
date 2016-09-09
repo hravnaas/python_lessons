@@ -7,20 +7,30 @@
 </head>
 <body>
 	<div>
-		<h2>Friends: </h2>
+		<h2>Current Friends: </h2>
 		{% for friend in friends %}
 		    {% if friend %}
 		        <p>{{friend.first_name}} {{ friend.last_name }}</p>
-		        <form action="/editFriend" method="post">
-		        	<input type="hidden" name="friend_id" value="{{ friend.id }}">
+		        <form action="/friends/{{ friend.id }}/edit" method="post">
 		        	<input type="submit" name="submit" value="Edit Friend">
 		        </form>
-		        <form action="/deleteFriend" method="post">
-		        	<input type="hidden" name="friend_id" value="{{ friend.id }}">
+		        <form action="/friends/{{ friend.id }}/delete" method="post">
 		        	<input type="submit" name="submit" value="Delete Friend">
 		        </form>
+		        <hr>
 		    {% endif %}
 	  	{% endfor %}
-		</div>
+	</div>
+	<hr>
+	<hr>
+	<div>
+		<h2>Add New Friend: </h2>
+		<form action="/friends" method="post">
+			<p>First Name: <input type="text" name="first_name"></p>
+			<p>Last Name: <input type="text" name="last_name"></p>
+			<p>Occupation: <input type="text" name="occupation"></p>
+			<input type="submit" name="submit" value="Add Friend">
+		</form>
+	</div>
 </body>
 </html>

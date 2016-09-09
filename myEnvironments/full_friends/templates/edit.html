@@ -7,16 +7,11 @@
 </head>
 <body>
 	<div>
-		<form action="/updateFriend" method="post">
+		<form action="/friends/{{ friend[0].id }}" method="post">
 			<p>First Name: <input type="text" name="first_name" value="{{ friend[0].first_name }}"></p>
 			<p>Last Name: <input type="text" name="last_name" value="{{ friend[0].last_name }}"></p>
 			<p>Occupation: <input type="text" name="occupation" value="{{friend[0].occupation }}"></p>
-			<input type="hidden" name="id" value="{{ friend[0].id }}">
 			<input type="submit" name="submit" value="Update">
-		</form>
-		<form action="/deleteFriend" method="post">
-			<input type="hidden" name="id" value="{{ friend[0].id }}">
-			<input type="submit" name="submit" value="Delete">
 		</form>
 	</div>
 </body>

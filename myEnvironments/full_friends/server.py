@@ -18,12 +18,9 @@ def getAllFriends():
 	select_query = "SELECT id, first_name, last_name, occupation, created_at, updated_at FROM friends"
 	return mysql.query_db(select_query)
 
-@app.route('/editFriend', methods=['POST'])
-def editFriend():
-	# return render_template('edit.html')
-	print request.form
-	friend_id = request.form['friend_id']
-	return render_template('edit.html', friend=getFriend(friend_id))
+@app.route('/friends/<id>/edit', methods=['POST'])
+def editFriend(id):
+	return render_template('edit.html', friend=getFriend(id))
 
 # Get a specified friend from the database.
 def getFriend(id):
@@ -31,10 +28,10 @@ def getFriend(id):
 	data = {'id' : id}
 	return mysql.query_db(select_query, data)
 
-@app.route('/updateFriend', methods=['POST'])
-def updateFriend():
+@app.route('/friends/<id>', methods=['POST'])
+def updateFriend(id):
 	updateFriendInDb(
-		request.form['id'],
+		id,
 		request.form['first_name'], 
 		request.form['last_name'],
 		request.form['occupation'])
@@ -54,9 +51,9 @@ def updateFriendInDb(id, first_name, last_name, occupation):
 	mysql.query_db(update_query, data)
 	return redirect('/')
 
-@app.route('/deleteFriend', methods=['POST'])
-def deleteFriend():
-	removeFriend(request.form['friend_id'])
+@app.route('/friends/<id>/delete', methods=['POST'])
+def deleteFriend(id):
+	removeFriend(id)
 	return redirect('/')
 
 # Delete friend with a given id
@@ -65,11 +62,21 @@ def removeFriend(id):
 	data = {"id" : id}
 	mysql.query_db(delete_query, data)
 
-# Saves an email address from the user to the database.
+@app.route('/friends', methods=['POST'])
+def addFriend():
+	saveFriendToDb(request.form['first_name'], request.form['last_name'], request.form['occupation'])
+	return redirect('/')
+
+# Adds a new friedn to the database.
 # It does not check if it already exists.
-def saveEmailToDb(email):
-	insert_query = "INSERT INTO emails (email_address, created_at, updated_at) VALUES (:email_address, NOW(), NOW())"
-	data = {'email_address': email}
-	mysql.query_db(insert_query, data)
+def saveFriendToDb(first_name, last_name, occupation):
+	insert_query = "INSERT INTO friends (first_name, last_name, occupation, created_at, updated_at) VALUES (:first_name, :last_name, :occupation, NOW(), NOW())"
+	data = {
+				'first_name': first_name,
+				'last_name' : last_name,
+				'occupation' : occupation
+			}
+
+	return mysql.query_db(insert_query, data)
 
 app.run(debug=True)
