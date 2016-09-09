@@ -6,3 +6,7 @@
 	width: 300px;
 	padding: 10px;
 }
+p, form{
+	display: inline-block;
+	vertical-align: top;
+}

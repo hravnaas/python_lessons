@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Full Friends Assigment</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div>
+	<h2>Friends: </h2>
+	{% for friend in friends %}
+	    {% if friend %}
+	        <p>{{friend.first_name}} {{ friend.last_name }}</p>
+	        <form action="/editFriend" method="post">
+	        	<input type="hidden" name="friend_id" value="{{ friend.id }}">
+	        	<input type="submit" name="submit" value="Edit Friend">
+	        </form>
+	        <form action="/deleteFriend" method="post">
+	        	<input type="hidden" name="friend_id" value="{{ friend.id }}">
+	        	<input type="submit" name="submit" value="Delete Friend">
+	        </form>
+	    {% endif %}
+  	{% endfor %}
+	<form action="/verifyEmail" method="post">
+		
+		<input type="submit" name="submit" value="Add">
+	</form>
+	<form action="/deleteEmail" method="post">
+		<p>Delete Email address: <input type="text" name="email" width="300"></p>
+		<p>{{ deletion_confirmation_message }}</p>
+		<input type="submit" name="submit" value="Delete">
+	</form>
+	</div>
+</body>
+</html>

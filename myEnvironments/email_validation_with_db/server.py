@@ -26,9 +26,15 @@ def verifyEmail():
 
 	saveEmailToDb(email)
 	allEmails = getAllEmails()
-	print allEmails
 
 	return render_template("success.html", validatedEmail=email, currentEmails=allEmails)
+
+@app.route('/deleteEmail', methods=['POST'])
+def deleteEmail():
+	email = request.form["email"]
+	removeEmail(request.form["email"])
+	return render_template('index.html', deletion_confirmation_message=email + " was deleted.")
+	deletion_confirmation_message
 
 # Saves an email address from the user to the database.
 # It does not check if it already exists.
@@ -41,5 +47,11 @@ def saveEmailToDb(email):
 def getAllEmails():
 	select_query = "SELECT email_address, created_at FROM emails"
 	return mysql.query_db(select_query)
+
+# Delete all emails with a given value
+def removeEmail(email):
+	delete_query = "DELETE FROM emails WHERE email_address = :email_address"
+	data = {"email_address" : email}
+	mysql.query_db(delete_query, data)
 
 app.run(debug=True)
