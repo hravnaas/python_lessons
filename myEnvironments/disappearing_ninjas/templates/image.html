@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Disappearing Ninjas Assigment</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-</head>
-<body>
-    <div>
-        <img src="{{ url_for('static', filename='img/ninjas.png') }}" hidden="true">
-    </div>
-    <div id="fileName" hidden="false" realImg="/static/img/{{imageName}}"></div>
-</body>
+	<head>
+	    <meta charset="utf-8">
+	    <title>Disappearing Ninjas Assigment</title>
+	    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+	    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+	</head>
+	<body>
+	    <div>
+	        <img src="{{ url_for('static', filename='img/ninjas.png') }}" hidden="true">
+	    </div>
+	    <!-- The below div plus the java script file is a hack to store the value of the Jinja imageName variable
+	    as I couldn't find a way to embed it into the img scr. -->
+	    <div id="fileName" realImg="/static/img/{{imageName}}"></div>
+	</body>
 </html>

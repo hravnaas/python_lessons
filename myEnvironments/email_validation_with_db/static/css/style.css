@@ -1,0 +1,8 @@
+.error{
+	color: red;
+}
+.greenBackground{
+	background-color: green;
+	width: 300px;
+	padding: 10px;
+}

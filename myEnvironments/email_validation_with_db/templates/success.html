@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Email Validation With Db Assigment</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+	<div class="greenBackground">
+		<p>The email address you entered ({{ validatedEmail }}) is a VALID email address! Thank you!</p>
+	</div>
+	<div>
+		<p>
+			<u>Email Addresses Entered:</u>
+		</p>
+		
+		<!-- Jinja -->
+		{% for record in currentEmails: %}
+			<p>{{ record['email_address'] }} {{ record['created_at'] }}</p>
+		{% endfor %}
+
+	</div>
+</body>
+
+</html>
