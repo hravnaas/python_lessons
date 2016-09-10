@@ -1,0 +1,43 @@
+#header{
+	width: 970px;
+	height: 80px;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+#cdwall{
+	display: inline-block;
+	vertical-align: top;
+	width: 400px;
+	height: 60px;
+	padding:10px;
+}
+#welcome{
+	padding: 10px 20px 10px 300px;
+	height: 80px;
+	display: inline-block;
+	vertical-align: top;
+}
+#container{
+	width: 870px;
+	height: 750px;
+	border: 1px solid black;
+	padding: 50px;
+}
+#allMessages{
+	width: 770px;
+	height: 600px;
+	outline: 1px dotted black;
+	padding: 10px;
+	margin-top: 20px;
+	overflow-y: scroll;
+}
+.msgText{
+	padding-left: 30px;
+}
+.commentText{
+	padding-left: 50px;
+}
+.postComment{
+	padding-left: 50px;
+}
