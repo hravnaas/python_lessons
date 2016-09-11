@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, session
 from flask.ext.bcrypt import Bcrypt
 import datetime
+import re
 
 # import the Connector function
 from mysqlconnection import MySQLConnector
@@ -14,7 +15,7 @@ mysql = MySQLConnector(app, 'thewall')
 # Default route. User is redirected here after successful login
 @app.route('/')
 def index():
-	if "userIdXX" not in session:
+	if "userId" not in session:
 		# User is logged in and needs to register or log in
 		return render_template('login.html')
 
@@ -77,19 +78,51 @@ def register():
 	password = request.form['password']
 	cpassword = request.form['cpassword']
 
-	# TODO validation
-	hasValidationErrors = False
-	if hasValidationErrors:
-		# flash 
-		pass
+	# Validate input fields
+	session['hasValidationErrors'] = False
+	validateAllFields()
+	if session['hasValidationErrors']:
+		return redirect('/')
 
+    # All input fields look good. Save the user to the database.
 	userId = addUserToDb(first_name, last_name, email, bcrypt.generate_password_hash(password))
-	
+
 	# The user was successfully registered.
 	# Automatically do a login.
-	#return redirect('/wall/login')
 	login(userId)
 	
+def validateAllFields():
+    validateNotBlank()
+    validateNames()
+    validatePasswords()
+    validateEmail()
+
+def validateNotBlank():
+    for key in request.form:
+        if len(request.form[key]) < 1:
+            flash(key + " is empty but is required.")
+            session['hasValidationErrors'] = True
+
+def validateNames():
+    if not request.form["first_name"].isalpha() or not request.form["last_name"].isalpha():
+        flash("Only alphamumeric characters are allowed for the first and last name.")
+        session['hasValidationErrors'] = True
+
+def validatePasswords():
+    MIN_PASSWORD = 8
+    if len(request.form["password"]) < MIN_PASSWORD:
+        flash("The password must be at least " + str(MIN_PASSWORD) + " characters. Yours is only " + str(len(request.form["password"])) + ".")
+        session['hasValidationErrors'] = True
+
+    if len(request.form["password"]) != len(request.form["cpassword"]):
+        flash("The password and confirmed password do not match.")
+        session['hasValidationErrors'] = True
+
+def validateEmail():
+    EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+    if not EMAIL_REGEX.match(request.form["email"]):
+        flash("The email is invalid.")
+        session['hasValidationErrors'] = True
 
 # Adds a new user to the database and returns the user ID.
 # It does not check if it already exists.
@@ -106,19 +139,16 @@ def addUserToDb(first_name, last_name, email, encrypted_password):
 
 @app.route('/wall/login', methods=['POST', 'GET'])
 def login(userId = -1):
-	if "userIdX" not in session:
+	if "userId" not in session:
 		if len(request.form) < 1:
 			# User is not logged in and no info was posted. Force another login.
 			return render_template('login.html')
 
 		# Log the user in by grabbing the encrypted password from the database
 		# and comparing it to the provided password after encrypting it.
-		user = getUserByEmail(request.form["email"])
-		print user[0]["password"]
-		print request.form['password']
+		user = getUserByEmail(request.form["email"])[0]
 		try:
-			if not bcrypt.check_password_hash(user[0]["password"], request.form['password']):
-				print "DEBUG: password is incorrect"
+			if not bcrypt.check_password_hash(user["password"], request.form['password']):
 				flash("Incorrect user name or password")
 				return render_template('login.html')
 		except Exception, e:
@@ -127,9 +157,8 @@ def login(userId = -1):
 			return render_template('login.html')
 
 		# Credentials look good.
-		print "DEBUG: Password check passed"
-		session['userId'] = user.id
-		session['firstName'] = user.first_name
+		session['userId'] = user["id"]
+		session['firstName'] = user["first_name"]
 	
 	# User is (now) considered logged in. Go to the wall.
 	result = getAllMessagesAndComments()
