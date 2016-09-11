@@ -1,3 +1,6 @@
+*{
+	/*outline: 1px dotted red*/
+}
 #header{
 	width: 970px;
 	height: 80px;
@@ -14,7 +17,7 @@
 }
 #welcome{
 	padding: 10px 20px 10px 300px;
-	height: 80px;
+	height: 60px;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -27,10 +30,18 @@
 #allMessages{
 	width: 770px;
 	height: 600px;
-	outline: 1px dotted black;
+	/*outline: 1px dotted black;*/
 	padding: 10px;
 	margin-top: 20px;
 	overflow-y: scroll;
+}
+.fullMsg{
+	background-color: aliceblue;
+	padding: 5px;
+}
+.fullMsg:nth-child(odd){
+	background-color: azure;
+	padding: 5px;
 }
 .msgText{
 	padding-left: 30px;
@@ -43,4 +54,8 @@
 }
 .error{
 	color: red;
+}
+.newMsgAndComment{
+	width: 400px;
+	height: 30px;
 }
