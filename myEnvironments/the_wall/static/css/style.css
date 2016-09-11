@@ -41,3 +41,6 @@
 .postComment{
 	padding-left: 50px;
 }
+.error{
+	color: red;
+}
