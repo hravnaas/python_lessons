@@ -26,11 +26,11 @@ def index():
 # Retrieves all messages and their comments from the database.
 def getAllMessagesAndComments():
 	# Get all the messages.
-	message_query = "SELECT m.id, m.created_at, m.message, concat_ws(' ', u.first_name, u.last_name) as full_name FROM messages AS m INNER JOIN users AS u ON u.id = m.user_id ORDER BY m.created_at DESC"
+	message_query = "SELECT m.id, DATE_FORMAT(m.created_at, '%M %D %Y %h:%i %p') as created_at, m.message, concat_ws(' ', u.first_name, u.last_name) as full_name FROM messages AS m INNER JOIN users AS u ON u.id = m.user_id ORDER BY m.created_at DESC"
 	messages = mysql.query_db(message_query)
 
 	# Get all the comments
-	comment_query = "SELECT c.message_id, c.comment, c.created_at, concat_ws(' ', u.first_name, u.last_name) as full_name FROM comments AS c INNER JOIN users AS u ON c.user_id = u.id ORDER BY message_id, created_at DESC"
+	comment_query = "SELECT c.message_id, c.comment, DATE_FORMAT(c.created_at, '%M %D %Y %h:%i %p') as created_at, concat_ws(' ', u.first_name, u.last_name) as full_name FROM comments AS c INNER JOIN users AS u ON c.user_id = u.id ORDER BY message_id, c.created_at DESC"
 	comments = mysql.query_db(comment_query)
 
 	# Return messages and comments as separate items. That way

@@ -31,7 +31,7 @@
 							<p>{{ msg.message }}</p>
 							{% for comment in comments %}
 								{% if comment.message_id is equalto msg.id %}
-									<p><b>{{ comment.full_name}} {{ comment.created_at }}</b></p>
+									<p><b>{{ comment.full_name}} - {{ comment.created_at }}</b></p>
 									<div class="commentText">
 										<p>{{ comment.comment }}</p>
 									</div>
