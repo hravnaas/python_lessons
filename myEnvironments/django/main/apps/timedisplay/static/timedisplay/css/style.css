@@ -1,0 +1,19 @@
+#div1{
+	width: 200px;
+	height: 50px;
+	padding 5px;
+	margin-left: 500px;
+	border: 2px solid black;
+	font-size: 17px;
+	text-align: center;
+}
+#div2{
+	width: 400px;
+	height: 100px;
+	padding: 10px;
+	margin-left: 400px;
+	margin-top: 20px;
+	border: 2px solid black;
+	font-size: 30px;
+	text-align: center;
+}
