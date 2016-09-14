@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Survery Form Assignment</title>
+	{% load staticfiles %}
+	<!-- The line above tells Django to be ready to listen for static files -->
+	<link rel="stylesheet" href="{% static 'survery_form/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+	<div id="container">
+		<div>
+			<form action="/surveys/process/" method="POST">
+				{% csrf_token %}
+				<p>Your Name: <input type="text" name="name"></p>
+				<p>Dojo Location: <input type="text" name="location"></p>
+				<p>Favorite Language: <input type="text" name="language"></p>
+				<p>Comment (optional): <input type="text" name="comment"></p>
+				<input class="button" type="submit" name="submitBotton" value="Submit">
+			</form>
+		</div>
+	</div>
+</body>
+</html>

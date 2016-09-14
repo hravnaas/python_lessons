@@ -1,0 +1,13 @@
+*{
+	/*outline: 1px dotted red;*/
+	margin: 10px;
+}
+#thanks{
+	background-color: lightgreen;
+}
+.button{
+	background-color: blue;
+	color: white;
+	width: 100px;
+	height: 30px;
+}

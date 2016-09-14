@@ -1,0 +1,73 @@
+Instructions for how to start a Django project and add an app
+	Project name: assignment2
+	App name: random_word_generator
+
+------- Activate virtual environment --------
+1. source djangoEnv/bin/activate
+
+------- Create project --------
+2. django-admin startproject assignment2
+3. cd assignment2
+
+------- Create app --------
+4. mkdir apps
+5. cd apps
+6. touch __init__.py
+7. python ../manage.py startapp random_word_generator
+8. cd random_word_generator
+9. touch __init__.py (not sure if needed, believe it gets created automatically, possible difference between Python 2 and 3)
+10. edit settings.py in assignment2/assignment2 to include "'apps.random_word_generator'," under INSTALL_APPS
+11. touch urls.py
+12. edit assignment2/assignment2/urls.py, for example add:
+
+		url(r'^', include('apps.random_word_generator.urls'))
+	
+	Remember to add "include" at the end of this line "from django.conf.urls import url, include" in the above urls.py file
+
+13. edit urls.py in your app folder (not the same file as above), so apps/random_word_generator folder:
+
+	from django.conf.urls import url
+	from . import views
+
+	urlpatterns = [
+	    url(r'^$', views.index, name="index")
+	]
+
+
+14. create index method in apps\random_word_generator\views.py, example:
+
+	from django.shortcuts import render, redirect
+
+	# Create your views here.
+	def index(request):
+		print "Debug"
+		return render(request, "random_word_generator/index.html")
+
+--------- Create your content files -------------
+
+15. inside random_word_generator, create these folders and files:
+		apps/random_word_generator/templates/random_word_generator/index.html
+		apps/random_word_generator/static/random_word_generator/css/style.css
+		etc.
+
+--------- Start server ------------
+
+cd back to the top level project folder, so the first assignment2 folder
+16. python manage.py runserver 
+
+
+-----------------------------
+* If you need to reference for example a CSS file in our html, use something like this:
+
+<head>
+	<title>My Assignment</title>
+	{% load staticfiles %}
+	<!-- The line above tells Django to be ready to listen for static files -->
+	<link rel="stylesheet" href="{% static 'random_word_generator/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+</head>
+
+* If you want to get rid of the message "you have x unapplied migrations...", run the below in the folder
+with the manage.py file:
+
+python manage.py makemigrations
+python manage.py migrate
