@@ -8,11 +8,9 @@
 		<script src="{% static 'ninjas/js/script.js' %}"></script>
 	</head>
 	<body>
-		<!-- The image src will be completed by Javascript. -->
-		<!-- Instead of using fileName, as a fake attribute on src, a variable could be used. See below -->
-		<img src="{% static 'ninjas/img/' %}" hidden="true" fileName="{{ imageName }}"></img>
+		<img src="{% static 'ninjas/img/'|add:imageName %}">
 	</body>
 	<footer>
-		theFileName = {{ imageName }}
+		<!-- theFileName = {{ imageName }} -->
 	</footer>
 </html>
