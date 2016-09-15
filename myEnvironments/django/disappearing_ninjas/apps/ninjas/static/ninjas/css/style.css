@@ -1,0 +1,9 @@
+*{
+	/*outline: 1px dotted black;*/
+}
+.error{
+	color: red;
+}
+.noError{
+	color: green
+}

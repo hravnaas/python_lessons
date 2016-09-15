@@ -1,4 +1,4 @@
-"""survey URL Configuration
+"""disappearing_ninjas URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -14,17 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.survey_form.urls'))
-    
-    # hitting users/login - results:
-    # yes: url(r'users/login', include('apps.survey_form.urls'))
-    # yes: url(r'login$', include('apps.survey_form.urls'))
-    # no: url(r'^users', include('apps.survey_form.urls'))
-    # no: url(r'^login$', include('apps.survey_form.urls'))
-    # no: url(r'^$', include('apps.survey_form.urls'))
-    # no: url(r'^', include('apps.survey_form.urls'))
+    url(r'^', include('apps.ninjas.urls'))
 ]

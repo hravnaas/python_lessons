@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <title>Disappearing Ninjas Assigment</title>
+	    {% load staticfiles %}
+		<script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
+		<script src="{% static 'ninjas/js/script.js' %}"></script>
+	</head>
+	<body>
+		<!-- The image src will be completed by Javascript. -->
+		<!-- Instead of using fileName, as a fake attribute on src, a variable could be used. See below -->
+		<img src="{% static 'ninjas/img/' %}" hidden="true" fileName="{{ imageName }}"></img>
+	</body>
+	<footer>
+		theFileName = {{ imageName }}
+	</footer>
+</html>
