@@ -65,8 +65,8 @@ cd back to the top level project folder, so the first assignment2 folder
 	<!-- The line above tells Django to be ready to listen for static files -->
 	<link rel="stylesheet" href="{% static 'random_word_generator/css/style.css' %}"media="screen" title="no title" charset="utf-8">
 	<script src="{% static 'random_word_generator/js/main.js' %}" ></script>
-
 </head>
+<img src="{% static 'ninjas/img/' %}" hidden="true" fileName="{{ imageName }}"></img>
 
 * If you want to get rid of the message "you have x unapplied migrations...", run the below in the folder
 with the manage.py file:

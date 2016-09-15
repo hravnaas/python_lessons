@@ -1,0 +1,30 @@
+#score{
+	width: 100px;
+	height: 15px;
+	padding: 5px;
+}
+div{
+	border: 1px solid black;
+	margin: 20px;
+}
+div#places div{
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	padding: 15px;
+	background-color: snow;
+	border-radius: 5px;
+}
+#activities{
+	width: 970px;
+	height: 150px;
+	overflow-y: scroll;
+}
+.redText{
+	color: red
+}
+.greenText{
+	color: green;
+}
