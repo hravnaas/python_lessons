@@ -16,36 +16,36 @@
 		<div>
 			<h2>Farm</h2>
 			<p>(earn 10-20 golds)</p>
-			<form action="/process_money" method="post">
+			<form action="/process_money/farm" method="post">
 				{% csrf_token %}
-  				<input type="hidden" name="building" value="farm" />
+  				<!-- <input type="hidden" name="building" value="farm" /> -->
   				<input type="submit" value="Find Gold!"/>
 			</form>
 		</div>
 		<div>
 			<h2>Cave</h2>
 			<p>(earn 10-20 golds)</p>
-			<form action="/process_money" method="post">
+			<form action="/process_money/cave" method="post">
 				{% csrf_token %}
-  				<input type="hidden" name="building" value="cave" />
+  				<!-- <input type="hidden" name="building" value="cave" /> -->
   				<input type="submit" value="Find Gold!"/>
 			</form>
 		</div>
 		<div>
 			<h2>House</h2>
 			<p>(earn 10-20 golds)</p>
-			<form action="/process_money" method="post">
+			<form action="/process_money/house" method="post">
 				{% csrf_token %}
-  				<input type="hidden" name="building" value="house" />
+  				<!-- <input type="hidden" name="building" value="house" /> -->
   				<input type="submit" value="Find Gold!"/>
 			</form>
 		</div>
 		<div>
 			<h2>Casino</h2>
 			<p>(earn 10-20 golds)</p>
-			<form action="/process_money" method="post">
+			<form action="/process_money/casion" method="post">
 				{% csrf_token %}
-  				<input type="hidden" name="building" value="casino" />
+  				<!-- <input type="hidden" name="building" value="casino" /> -->
   				<input type="submit" value="Find Gold!"/>
 			</form>
 		</div>

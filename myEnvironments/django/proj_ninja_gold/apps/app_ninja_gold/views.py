@@ -9,12 +9,12 @@ def index(request):
 	return render(request, "app_ninja_gold/index.html")
 
 # /process_money'
-def processMoney(request):
+def processMoney(request, building):
 	# Only accept POSTS
 	if not request or request.method != "POST":
 		return redirect('/')
 
-	building = request.POST["building"]
+	#building = request.POST["building"] # Not needed when using route parameters
 	currentScore = request.session['gameScore']
 	newGold = 0
 
