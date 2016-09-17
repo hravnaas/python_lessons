@@ -28,7 +28,7 @@
           <td>{{ course.name }}</td>
           <td>{{ course.myDescription.get.description }}</td>
           <td>{{ course.created_at }}</td>
-          <td><a href="/courses/destroy/{{ course.id }}">remove</a></td>
+          <td><a href="/courses/destroy/{{ course.id }}/confirm">remove</a></td>
         </tr>
       {% endfor %}
     </table>
