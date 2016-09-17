@@ -4,12 +4,14 @@ import random
 
 # Default route
 def index(request):
-	request.session['gameScore'] = 0
-	request.session['comments'] = []
+	if 'gameScore' not in request.session:
+		request.session['gameScore'] = 0
+		request.session['comments'] = []
 	return render(request, "app_ninja_gold/index.html")
 
 # /process_money'
 def processMoney(request, building):
+	print building
 	# Only accept POSTS
 	if not request or request.method != "POST":
 		return redirect('/')
@@ -25,10 +27,11 @@ def processMoney(request, building):
 	elif building == "house":
 		newGold = getRandNum(2, 5)
 	elif building == "casino":
-		newGold = getRandNum(0, 50)
+		print "building: ", building
+		newGold = getRandNum(-50, 50)
 		# Determine if user should gain or lose gold
-		if getRandNum(0,1) == 0:
-			newGold = 0 - newGold
+		# if getRandNum(-50,1) == 0:
+		# 	newGold = 0 - newGold
 	else:
 		# Ignore unknown building types
 		pass
@@ -48,7 +51,7 @@ def processMoney(request, building):
 	
 	# Get the new score and return it
 	request.session['gameScore'] = getNewScore(newGold, request)
-	return render(request, 'app_ninja_gold/index.html')
+	return redirect('/')
 
 def getRandNum(min, max):
 	return random.randrange(min, max + 1)
