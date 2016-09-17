@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'email_validation/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+    <title>Email Verification Assignment</title>
+  </head>
+  <body>
+    <div class="green_background">
+        The email address you entered ({{ new_email }}) is a VALID email address! Thank you!
+    </div>
+    <h3>Email Addresses Entered</h3>
+    {% for email in emails %}
+      <p>
+        {{ email.email }}: {{ email.created_at }}
+      </p>
+    {% endfor %}
+  </body>
+</html>
