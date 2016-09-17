@@ -11,7 +11,7 @@ class Course(models.Model):
 
 class Description(models.Model):
     description = models.CharField(max_length=200)
-    course = models.ForeignKey(Course)
+    course = models.ForeignKey(Course, related_name = 'myDescription')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
