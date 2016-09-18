@@ -7,14 +7,21 @@
     <title>Email Verification Assignment</title>
   </head>
   <body>
-    <div class="green_background">
-        The email address you entered ({{ new_email }}) is a VALID email address! Thank you!
-    </div>
+    <!-- Only show below div if user added an email. Showing emails after a deletion is not needed. -->
+    {% if new_email %}
+      <div class="green_background">
+          The email address you entered ({{ new_email }}) is a VALID email address! Thank you!
+      </div>
+    {% endif %}
     <h3>Email Addresses Entered</h3>
-    {% for email in emails %}
-      <p>
-        {{ email.email }}: {{ email.created_at }}
-      </p>
-    {% endfor %}
+    <table>
+      {% for email in emails %}
+        <tr>
+          <td>{{ email.email }}</td>
+          <td>{{ email.created_at }}</td>
+          <td><a href="/removeEmail/{{ email.id }}">remove</a></td>
+        </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
