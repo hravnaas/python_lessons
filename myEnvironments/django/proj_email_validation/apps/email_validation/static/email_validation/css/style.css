@@ -28,5 +28,8 @@ a{
   color: black;
 }
 td{
-  padding: 3px;
+  padding: 3px 6px 3px 6px;
+}
+table{
+  border: 2px solid black
 }
