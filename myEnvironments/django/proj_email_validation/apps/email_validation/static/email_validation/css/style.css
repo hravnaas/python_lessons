@@ -17,3 +17,16 @@
   font-size: 15px;
   color: white;
 }
+
+tr:nth-child(odd){
+	background-color: lightblue;
+}
+tr{
+	background-color: azure;
+}
+a{
+  color: black;
+}
+td{
+  padding: 3px;
+}
