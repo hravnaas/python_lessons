@@ -5,6 +5,7 @@
   padding: 10px;
   width: 250px;
   height: 50px;
+  font-size: 13px;
 }
 .red_background{
   background-color: red;
@@ -13,4 +14,6 @@
   padding: 10px;
   width: 150px;
   height: 30px;
+  font-size: 15px;
+  color: white;
 }

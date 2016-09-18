@@ -7,12 +7,6 @@ def index(request):
     return render(request, 'email_validation/index.html')
 
 def addEmail(request):
-
-    # NOTE NOTE NOTE THIS IS NOT DONE AND IS ONLY PARTIALLY WORKING
-    # NOTE NOTE NOTE THIS IS NOT DONE AND IS ONLY PARTIALLY WORKING
-    # NOTE NOTE NOTE THIS IS NOT DONE AND IS ONLY PARTIALLY WORKING
-    # NOTE NOTE NOTE THIS IS NOT DONE AND IS ONLY PARTIALLY WORKING
-
     if request.method == 'POST':
         hasErrors = False
         email = request.POST['email']
@@ -26,8 +20,11 @@ def addEmail(request):
             Email.objects.create(email = request.POST['email'])
             return redirect('/showAllEmails/' + email)
 
-    messages.add_message(request, 'Email is invalid')
-    return redirect(request, '/')
+        # At this point, the email is either missing or invalid. Inform
+        # the user and preserve the entered email.
+        messages.add_message(request, messages.ERROR, 'Email is not valid!', extra_tags=email)
+
+    return redirect('/')
 
 def showAllEmails(request, email):
     context =  {

@@ -4,18 +4,24 @@
     <meta charset="utf-8">
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'email_validation/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+		<script src="{% static 'email_validation/js/script.js' %}"></script>
     <title>Email Validation</title>
   <body>
       {% if messages %}
         <div class="red_background">
           {% for message in messages %}
               <p>{{ message }}</p>
+              <!-- Hack to preserver email address entered -->
+              {% if message.extra_tags %}
+                <div id="entered_email" email="{{ message.extra_tags }}"></div>
+              {% endif %}
           {% endfor %}
         </div>
       {% endif %}
     <form action="/addEmail" method="post">
       {% csrf_token %}
-      <p>Email: <input type="text" name="email" placeholder="Enter email"></p>
+      <p>Email: <input id="email" type="text" name="email"></p>
       <input type="submit" name="submit" value="Submit">
     </form>
   </body>
