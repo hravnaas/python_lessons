@@ -39,8 +39,8 @@ def register(request):
 def login(request):
     if request.method == 'POST':
         try:
-            existingPassword = User.objects.filter(email = request.POST['Email'])[0].password
-            if bcrypt.hashpw(request.POST['Password'].encode(), existingPassword.encode()) != existingPassword:
+            existingUser = User.objects.filter(email = request.POST['Email'])
+            if bcrypt.hashpw(request.POST['Password'].encode(), existingUser[0].password.encode()) != existingUser[0].password:
                 print "bad password"
                 return redirect('/')
             print "good password"
@@ -49,7 +49,7 @@ def login(request):
      	    print "Unexpected error, please try again (" + e.message + ")"
             return redirect('/')
 
-        return render(request, 'login_reg/success.html', { "fullName" : request.POST['Email'], "action" : "logged in" })
+        return render(request, 'login_reg/success.html', { "fullName" : existingUser[0].first_name, "action" : "logged in" })
 
     # Add error messages if any.
     return redirect('/')

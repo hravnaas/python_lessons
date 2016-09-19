@@ -1,6 +1,9 @@
 #from flask import request, flash, session
 import re
+import datetime
 from django.contrib import messages
+
+#TODO: Implement validation of MAX_BIRTHDAY
 
 def validateAllFields(request):
     validateNotBlank(request)
@@ -33,5 +36,6 @@ def validateEmail(request):
 
 def validateBirthday(request):
     MIN_BIRTHDAY = '1900-01-01'
+    #MAX_BIRTHDAY = datetime.now - ??
     if request.POST["Password"] < MIN_BIRTHDAY:
-        messages.add_message(request, messages.ERROR, "Invalid birtyday.")
+        messages.add_message(request, messages.ERROR, "Invalid birthday.")
