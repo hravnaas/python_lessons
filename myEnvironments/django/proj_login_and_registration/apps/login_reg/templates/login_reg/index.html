@@ -22,16 +22,20 @@
 			<p>Confirm Password: <input type="password" name="Confirmed Password"></p>
       <p>Birthday: <input type="date" name="Birthday"></p>
 			<input class="btn" type="submit" name="submit" value="Register">
-			{% for message in messages %}
-        <p class="error">{{ message }}</p>
-      {% endfor %}
 		</form>
+    {% if messages %}
+      <div class="errors">
+        {% for message in messages %}
+          <p class="error">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
 
     <h4>Login</h4>
 		<form action="/login" method="POST">
       {% csrf_token %}
-			<p>Email: <input type="text" name="email"></p>
-			<p>Password: <input type="password" name="password"></p>
+			<p>Email: <input type="text" name="Email"></p>
+			<p>Password: <input type="password" name="Password"></p>
 			<input class="btn" type="submit" name="submit" value="Log in">
 		</form>
 

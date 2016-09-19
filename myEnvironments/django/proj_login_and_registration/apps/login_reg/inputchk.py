@@ -21,7 +21,7 @@ def validateNames(request):
 def validatePasswords(request):
     MIN_PASSWORD = 8
     if len(request.POST["Password"]) < MIN_PASSWORD:
-        messages.add_message(request, messages.ERROR, "The password must be at least " + str(MIN_PASSWORD) + " characters. Yours is only " + str(len(request.form["Password"])) + ".")
+        messages.add_message(request, messages.ERROR, "The password must be at least " + str(MIN_PASSWORD) + " characters. Yours is only " + str(len(request.POST["Password"])) + ".")
 
     if len(request.POST["Password"]) != len(request.POST["Confirmed Password"]):
         messages.add_message(request, messages.ERROR, "The password and confirmed password do not match.")

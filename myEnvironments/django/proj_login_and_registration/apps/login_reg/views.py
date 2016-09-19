@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import User
 import inputchk
+import bcrypt
 
 # inputchk.validateAllFields()
 
@@ -9,6 +11,7 @@ import inputchk
 
 # Default route when launching web site.
 def index(request):
+    #allofit = User.objects.raw('SELECT email FROM login_reg_user')
     return render(request, 'login_reg/index.html')
 
 # Used for registering a new user.
@@ -16,54 +19,48 @@ def register(request):
     if request.method == 'POST':
         inputchk.validateAllFields(request)
 
-    # Redirect to login/registration page if there are validation errors.
-    if hasErrors():
-        return redirect('/')
+        # Redirect to login/registration page if there are validation errors.
+        if hasErrors(request):
+            return redirect('/')
 
-    # Input validation passed. Save user to the database.
-    
-    return render(request, 'login_reg/success.html', { "fullName" : request.POST['First Name'], "action" : "registered" })
+        # Input validation passed. Save user to the database.
+        User.objects.create(
+            first_name = request.POST['First Name'],
+            last_name = request.POST['Last Name'],
+            email = request.POST['Email'],
+            password = bcrypt.hashpw(request.POST['Password'].encode(), bcrypt.gensalt()),
+            birthday = request.POST['Birthday']
+        )
+
+        return render(request, 'login_reg/success.html', { "fullName" : request.POST['First Name'], "action" : "registered" })
+    return redirect('/')
 
 # Logs in an existing user.
 def login(request):
-    if True:
-        return render(request, 'login_reg/success.html', { "fullName" : request.POST['email'], "action" : "logged in" })
+    if request.method == 'POST':
+        try:
+            existingPassword = User.objects.filter(email = request.POST['Email'])[0].password
+            if bcrypt.hashpw(request.POST['Password'].encode(), existingPassword.encode()) != existingPassword:
+                print "bad password"
+                return redirect('/')
+            print "good password"
+     	except Exception, e:
+     	      # Handle situation when the salt is bad, etc.
+     	    print "Unexpected error, please try again (" + e.message + ")"
+            return redirect('/')
+
+        return render(request, 'login_reg/success.html', { "fullName" : request.POST['Email'], "action" : "logged in" })
 
     # Add error messages if any.
     return redirect('/')
 
 def hasErrors(request):
-    if len(messages.get_messages(request)) > 0:
-        storage.used = False
-        return True
-    return False
+    return len(messages.get_messages(request)) > 0
 
-# def login():
-# 	if "userId" not in session:
-# 		if len(request.form) < 1:
-# 			# User is not logged in and no info was posted. Force another login.
-# 			return render_template('login.html')
-#
-# 		# Log the user in by grabbing the encrypted password from the database
-# 		# and comparing it to the provided password after encrypting it.
-# 		badLogin = "Incorrect user name or password"
-# 		user = getUserByEmail(request.form["email"])
-# 		if len(user) != 1:
-# 			# User does not exist in the database.
-# 			flash(badLogin)
-# 			return render_template('login.html')
-# 		try:
-# 			if not bcrypt.check_password_hash(user[0]["password"], request.form['password']):
-# 				flash(badLogin)
-# 				return render_template('login.html')
-# 		except Exception, e:
-# 			# Handle situation when the salt is bad, etc.
-# 			flash("Unexpected error, please try again (" + e.message + ")")
-# 			return render_template('login.html')
-#
-# 		# Credentials look good.
-# 		session['userId'] = user[0]["id"]
-# 		session['firstName'] = user[0]["first_name"]
-#
-# 	# User is (now) considered logged in. Go to the wall.
-# 	return toTheWall()
+# Get specified user from the database based on provided email.
+def getUserByEmail(email):
+	# Note that caller needs to handle non-existent user.
+
+	select_query = "SELECT id, first_name, password FROM users WHERE email = :email LIMIT 1"
+	data = {'email' : email}
+	return mysql.query_db(select_query, data)

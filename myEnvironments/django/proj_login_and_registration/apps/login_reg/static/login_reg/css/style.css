@@ -1,6 +1,11 @@
 .error{
   color: red;
 }
+.errors{
+  margin: 5px;
+  border: 1px solid black;
+  font-size: 10px;
+}
 .btn{
   background-color: darkblue;
   color: white;
