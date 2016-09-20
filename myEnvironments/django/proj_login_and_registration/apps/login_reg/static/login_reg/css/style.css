@@ -2,10 +2,11 @@
   color: red;
 }
 .errors{
-  width: 300px;
-  margin: 5px;
+  margin-top: 10px;
+  margin-left: 100px;
+  width: 350px;
   border: 1px solid black;
-  font-size: 10px;
+  font-size: 12px;
 }
 .btn{
   background-color: darkblue;

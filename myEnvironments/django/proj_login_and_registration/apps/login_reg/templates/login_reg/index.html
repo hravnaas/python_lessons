@@ -12,7 +12,6 @@
 <body>
 	<div>
     <h4>Registration</h4>
-
     <form action="/register" method="POST">
       {% csrf_token %}
 			<p>First Name: <input type="text" name="First Name"></p>
@@ -25,12 +24,13 @@
 		</form>
     {% if messages %}
       <div class="errors">
-        {% for message in messages %}
-          <p class="error">{{ message }}</p>
-        {% endfor %}
+        <ul>
+          {% for message in messages %}
+            <li class="error">{{ message }}</li>
+          {% endfor %}
+        </ul>
       </div>
     {% endif %}
-
     <h4>Login</h4>
 		<form action="/login" method="POST">
       {% csrf_token %}

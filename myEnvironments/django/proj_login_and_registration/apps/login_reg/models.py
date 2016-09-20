@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 import re
 import bcrypt
+import datetime
 
 class UserManager(models.Manager):
     def register(self, data):
@@ -96,8 +97,8 @@ class UserManager(models.Manager):
 
     def validateBirthday(self, data, errors):
         MIN_BIRTHDAY = '1900-01-01'
-        #MAX_BIRTHDAY = datetime.now - ??
-        if data["Password"] < MIN_BIRTHDAY:
+        MAX_BIRTHDAY = str(datetime.datetime.now())
+        if data["Birthday"] < MIN_BIRTHDAY or data["Birthday"] > MAX_BIRTHDAY:
             errors.append("Invalid birthday.")
 
     ####### Validation Helper Methods Ends #######
