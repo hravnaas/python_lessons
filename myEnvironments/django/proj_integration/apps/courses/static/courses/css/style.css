@@ -1,0 +1,10 @@
+.red_background{
+  background-color: darkred;
+}
+.green_background{
+  background-color: darkgreen;
+}
+.inline{
+  display: inline-block;
+  vertical-align: top;
+}

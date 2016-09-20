@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Ninja Gold Assigment</title>
+	{% load staticfiles %}
+	<!-- The line above tells Django to be ready to listen for static files -->
+	<link rel="stylesheet" href="{% static 'app_ninja_gold/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+	Your Gold:
+	<div id="score">
+		{{ request.session.gameScore }}
+	</div>
+	<div id="places">
+		<div>
+			<h2>Farm</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money/farm" method="post">
+				{% csrf_token %}
+  				<!-- <input type="hidden" name="building" value="farm" /> -->
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>Cave</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money/cave" method="post">
+				{% csrf_token %}
+  				<!-- <input type="hidden" name="building" value="cave" /> -->
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>House</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money/house" method="post">
+				{% csrf_token %}
+  				<!-- <input type="hidden" name="building" value="house" /> -->
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+		<div>
+			<h2>Casino</h2>
+			<p>(earn 10-20 golds)</p>
+			<form action="/process_money/casino" method="post">
+				{% csrf_token %}
+  				<!-- <input type="hidden" name="building" value="casino" /> -->
+  				<input type="submit" value="Find Gold!"/>
+			</form>
+		</div>
+	</div>
+	<p>Activities</p>
+	<div id="activities">
+		{% for logEntry in request.session.comments %}
+			<p class="{{ logEntry.class }}">{{ logEntry.message }}</p>
+		{% endfor %}
+	</div>
+</body>
+</html>

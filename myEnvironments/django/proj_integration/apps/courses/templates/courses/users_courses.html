@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="{% url 'courses:linkUserToCourse' %}" method="post">
+      {% csrf_token %}
+       <p>Users:
+         <select name="user_id">
+         {% for user in users %}
+            <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+         {% endfor %}
+       </select>
+       </p>
+       <p>Courses:
+         <select name="course_id">
+         {% for course in courses_users %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+         {% endfor %}
+         </select
+        </p>
+      <input type="submit" name="submit">
+    </form>
+    <table>
+      {% if courses_users %}
+        <th>
+          <td>Course</td>
+          <td>Title</td>
+          <td>Number of Users</td>
+        </th>
+        {% for course in courses_users %}
+          <tr>
+            <td>{{ course.id }}</td>
+            <td>{{ course.name }}</td>
+            <td>{{ course.user.count }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    <a href="/courses/">Return Home</a>
+  </body>
+</html>
