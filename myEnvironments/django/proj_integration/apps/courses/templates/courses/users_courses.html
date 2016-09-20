@@ -3,33 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css' %}"media="screen" title="no title" charset="utf-8">
   </head>
   <body>
     <form action="{% url 'courses:linkUserToCourse' %}" method="post">
       {% csrf_token %}
        <p>Users:
          <select name="user_id">
-         {% for user in users %}
-            <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
-         {% endfor %}
-       </select>
+           {% for user in users %}
+              <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+           {% endfor %}
+         </select>
        </p>
        <p>Courses:
          <select name="course_id">
-         {% for course in courses_users %}
-            <option value="{{ course.id }}">{{ course.name }}</option>
-         {% endfor %}
+           {% for course in courses_users %}
+              <option value="{{ course.id }}">{{ course.name }}</option>
+           {% endfor %}
          </select
-        </p>
-      <input type="submit" name="submit">
+       </p>
+      <p><input type="submit" name="submit"></p>
     </form>
-    <table>
+    <table id="courses_users" style="width:50%">
       {% if courses_users %}
-        <th>
-          <td>Course</td>
-          <td>Title</td>
-          <td>Number of Users</td>
-        </th>
+        <tr>
+          <th>Course</th>
+          <th>Title</th>
+          <th>Number of Users</th>
+        </tr>
         {% for course in courses_users %}
           <tr>
             <td>{{ course.id }}</td>
@@ -37,8 +39,8 @@
             <td>{{ course.user.count }}</td>
           </tr>
         {% endfor %}
-      </table>
-    {% endif %}
+      {% endif %}
+    </table>
     <a href="/courses/">Return Home</a>
   </body>
 </html>
