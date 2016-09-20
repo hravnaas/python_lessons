@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
 from .models import User
 import bcrypt
 
@@ -17,11 +18,11 @@ def register(request):
         if not result["validated"] or not result["registered"]:
             for err in result["errors"]:
                 messages.add_message(request, messages.ERROR, err)
-            return redirect('/')
+            return redirect(reverse('useradmin:index'))
 
         # Registration succeeded.
         return render(request, 'login_reg/success.html', { "fullName" : result["user"].first_name, "action" : "registered" })
-    return redirect('/')
+    return redirect(reverse('useradmin:index'))
 
 # Logs in an existing user.
 def login(request):
@@ -32,4 +33,4 @@ def login(request):
                 messages.add_message(request, messages.ERROR, err)
             return redirect('/')
         return render(request, 'login_reg/success.html', { "fullName" : result["user"].first_name, "action" : "logged in" })
-    return redirect('/')
+    return redirect(reverse('useradmin:index'))
