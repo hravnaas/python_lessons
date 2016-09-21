@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h2>Product {{ product.id }} </h2>
+    {% csrf_token %}
+    <p>Name: {{ product.name }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <p></p>
+    <a href="/products">Go back</a>
+    <a href="/products/edit/{{ product.id }}">Edit</a>
+  </body>
+</html>

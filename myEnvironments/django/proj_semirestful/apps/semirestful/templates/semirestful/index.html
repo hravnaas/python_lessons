@@ -23,11 +23,12 @@
           <td>
               <a href="/products/{{ product.id }}">Show</a> |
               <a href="/products/{{ product.id }}/edit">Edit</a> |
-              <a href="/products/{{ product.id }}/remove">Remove</a>
+              <a href="/products/destroy/{{ product.id }}">Remove</a>
           </td>
         </tr>
       {% endfor %}
     </table>
+    <p></p>
     <td><a href="/products/new">Add a new product</a></td>
   </body>
 </html>

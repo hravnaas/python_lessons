@@ -1,23 +1,23 @@
 from django.shortcuts import render, redirect
 from .models import Product
 
-# index: Display all products
+# Display all products
 def index(request):
     return render(request, 'semirestful/index.html', { "products" :  Product.objects.all() } )
 
-# show: Display a particular product
+# Display a particular product
 def show(request, id):
-    pass
+    return render(request, 'semirestful/show_product.html', { "product" :  Product.objects.get(id = id) } )
 
-# new: Display a form to create a new product
+# Display a form to create a new product
 def new(request):
     return render(request, 'semirestful/new_product.html')
 
-# edit: Display a form to update a product
+# Display a form to update a product
 def edit(request, id):
-    pass
+    return render(request, 'semirestful/edit_product.html', { "product" :  Product.objects.get(id = id) } )
 
-# create: Process information to create a new product
+# Process information to create a new product
 def create(request):
     if request.method == 'POST':
         Product.objects.create(
@@ -28,10 +28,20 @@ def create(request):
 
     return redirect('/products')
 
-# update: Process information from the edit form and update the particular product
+# Process information from the edit form and update the particular product
 def update(request, id):
-    pass
+    if request.method == 'POST':
+        product = Product.objects.get(id = id)
 
-# destroy: Remove a product
+        product.name = request.POST['name']
+        product.description = request.POST['description']
+        product.price = request.POST['price']
+
+        product.save()
+
+    return redirect('/products')
+
+# Remove a product
 def destroy(request, id):
-    pass
+    Product.objects.get(id = id).delete()
+    return redirect('/products')
