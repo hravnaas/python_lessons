@@ -21,7 +21,7 @@ def register(request):
             return redirect(reverse('useradmin:index'))
 
         # Registration succeeded.
-        return render(request, 'login_reg/success.html', { "fullName" : result["user"].first_name, "action" : "registered" })
+        return render(request, 'login_reg/success.html', { "firstName" : result["user"].first_name, "action" : "registered" })
     return redirect(reverse('useradmin:index'))
 
 # Logs in an existing user.
@@ -32,5 +32,17 @@ def login(request):
             for err in result["errors"]:
                 messages.add_message(request, messages.ERROR, err)
             return redirect('/')
-        return render(request, 'login_reg/success.html', { "fullName" : result["user"].first_name, "action" : "logged in" })
+        # User is now logged in.
+        request.session['userID'] = result["user"].id #Currently not used.
+        request.session['firstName'] = result["user"].first_name
+        return render(request, 'login_reg/success.html', { "firstName" : result["user"].first_name, "action" : "logged in" })
+    return redirect(reverse('useradmin:index'))
+
+def logout(request):
+    if "userID" in request.session:
+        del request.session["userID"]
+
+    if "userName" in request.session:
+        del request.session["userName"]
+
     return redirect(reverse('useradmin:index'))

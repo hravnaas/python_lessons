@@ -7,7 +7,8 @@
     <title>Login and Registration Assigment</title>
   </head>
   <body>
-    <h2>Success! Welcome, {{ fullName }}!</h2>
+    <h2>Success! Welcome, {{ firstName }}!</h2>
     <p class="greenText">Successfully {{ action }}!</p>
+    <a href="{% url 'useradmin:logout' %}">Log out</a>
   </body>
 </html>
