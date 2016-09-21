@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Semi-Restful Routes Assigment</title>
+    {% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'semirestful/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <h2>Products</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+      {% for product in products %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>${{ product.price }}</td>
+          <td>
+              <a href="/products/{{ product.id }}">Show</a> |
+              <a href="/products/{{ product.id }}/edit">Edit</a> |
+              <a href="/products/{{ product.id }}/remove">Remove</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    <td><a href="/products/new">Add a new product</a></td>
+  </body>
+</html>

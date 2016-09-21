@@ -1,0 +1,15 @@
+table{
+  margin: 10px 0px 10px 0px;
+  border: 1px solid black;
+}
+tr:nth-child(odd){
+	background-color: lightblue;
+}
+tr{
+	background-color: azure;
+}
+td{
+  text-align: center;
+  border: 1px solid black;
+  padding: 3px;
+}
