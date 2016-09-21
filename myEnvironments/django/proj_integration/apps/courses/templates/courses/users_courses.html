@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{% static 'courses/css/style.css' %}"media="screen" title="no title" charset="utf-8">
   </head>
   <body>
+    <!-- Below is an example of how to access a many to many table from the table that does NOT have the ManyToToMayField defined -->
+    <!-- {% for user in users %}
+      {{user.courses.count}}
+       <p>{{ user.first_name }}: {{ user.courses.count }} </p>
+    {% endfor %} -->
+
     <form action="{% url 'courses:linkUserToCourse' %}" method="post">
       {% csrf_token %}
        <p>Users:
