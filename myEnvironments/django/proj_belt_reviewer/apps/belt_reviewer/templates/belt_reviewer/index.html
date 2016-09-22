@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h3>Recent Book Reviews</h3>
+      {% for review in recentReviews %}
+        <p>Book title: {{ review.book.title }}</p>
+        <p>Review: {{ review.review }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Review ID: {{ review.id }}</p>
+        <br>
+      {% endfor %}
+    <h3>Other Books with Reviews</h3>
+    {% for book in reviewedBooks %}
+      <p>Title: {{ book.title }}</p>
+      <p>Author: {{ book.author.name }}</p>
+      <p>Book ID: {{ book.id }}</p>
+      <br>
+    {% endfor %}
+  </body>
+</html>
