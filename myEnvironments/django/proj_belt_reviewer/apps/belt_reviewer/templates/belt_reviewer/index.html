@@ -5,6 +5,7 @@
     <title></title>
   </head>
   <body>
+    <a href="{% url 'useradmin:logout' %}">Log out</a>
     <h3>Recent Book Reviews</h3>
       {% for review in recentReviews %}
         <p>Book title: {{ review.book.title }}</p>

@@ -6,7 +6,9 @@ import bcrypt
 
 # Default route when launching web site.
 def index(request):
-    #allofit = User.objects.raw('SELECT email FROM login_reg_user')
+    # If the user is already logged in, go elsewhere
+    # if "userID" in request.session:
+    #     return redirect(reverse('books:index'))
     return render(request, 'login_reg/index.html')
 
 # Used for registering a new user.

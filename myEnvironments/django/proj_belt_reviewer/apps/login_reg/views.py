@@ -4,10 +4,11 @@ from django.shortcuts import render, redirect
 from .models import User
 import bcrypt
 
-# Default route when launching web site.
 def index(request):
-    #allofit = User.objects.raw('SELECT email FROM login_reg_user')
+    if "userID" in request.session:
+        return redirect(reverse('books:index'))
     return render(request, 'login_reg/index.html')
+
 
 # Used for registering a new user.
 def register(request):
@@ -31,7 +32,7 @@ def login(request):
         if not result["logged_in"]:
             for err in result["errors"]:
                 messages.add_message(request, messages.ERROR, err)
-            return redirect('/')
+            return redirect(reverse('useradmin:index'))
         # User is now logged in.
         request.session['userID'] = result["user"].id #Currently not used.
         request.session['firstName'] = result["user"].first_name
