@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="{% url 'books:createBook' %}" method="POST">
+      {% csrf_token %}
+			<p>Book Title: <input type="text" name="title"></p>
+      <p>Existing Authors:
+         <select name="authorID">
+           {% for author in authors %}
+              <option value="{{ author.id }}">{{ author.name }}</option>
+           {% endfor %}
+         </select>
+       </p>
+			<p>New Author: <input type="text" name="author"></p>
+			<p>Review: <input type="text" name="review"></p>
+			<p>Rating: <input type="number" name="rating"></p>
+      <input type="hidden" name="userID" value="{{ request.session.userID }}">
+			<input type="submit" name="submit" value="Add Book and Review">
+		</form>
+  </body>
+</html>

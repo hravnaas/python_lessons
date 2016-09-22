@@ -5,13 +5,17 @@
     <title></title>
   </head>
   <body>
+    <a href="{% url 'books:addBook' %}">Add Book and Review</a>
     <a href="{% url 'useradmin:logout' %}">Log out</a>
+    <h3>Welcome {{ request.session.firstName }}</h3>
     <h3>Recent Book Reviews</h3>
       {% for review in recentReviews %}
         <p>Book title: {{ review.book.title }}</p>
         <p>Review: {{ review.review }}</p>
         <p>Rating: {{ review.rating }}</p>
         <p>Review ID: {{ review.id }}</p>
+        <p>Author: {{ review.book.author.name }}</p>
+        <p>Add by: {{ review.user.first_name }}</p>
         <br>
       {% endfor %}
     <h3>Other Books with Reviews</h3>

@@ -12,6 +12,13 @@ def index(request):
     }
     return render(request, 'belt_reviewer/index.html', context)
 
-def newBook(request):
-    Book.objects.addNew(request.POST)
-    return redirect('/')
+# Prompts user to enter information for a new book and optional review.
+def addBook(request):
+    return render(request, 'belt_reviewer/addBook.html', { 'authors' : Author.objects.getAll() })
+
+# Stores a new book and optionally a review.
+def createBook(request):
+    print "DEBUG: Entering createBook"
+    if request.method == 'POST':
+        Book.objects.addNew(request.POST)
+    return redirect(reverse('books:index'))

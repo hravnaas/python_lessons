@@ -12,6 +12,9 @@ class AuthorMgr(models.Manager):
                 name = data['author']
             )
 
+    def getAll(self):
+        return Author.objects.all()
+
 class Author(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,11 +26,29 @@ class Author(models.Model):
 
 class BookMgr(models.Manager):
     def addNew(self, data):
-        return Book.objects.create(
+
+        # First deal with the author.
+        author = None
+        if len(data['author']) > 0:
+            # We are given a new author name. Add it first.
+            author = Author.objects.addNew(data)
+        else:
+            # Get the author for the passed in existing author (ID).
+            author = Author.objects.get(id = data['authorID'])
+
+        # Create the book.
+        user = User.objects.get(id = data['userID'])
+        book = Book.objects.create(
                 title = data['title'],
-                author = Author.objects.get(id = data['authorID']),
-                user = User.objects.get(id = data['userID'])
+                author = author,
+                user = user
             )
+
+        # Create the review if one was submitted.
+        if len(data['review']) > 0:
+            review = Review.objects.addNew(data, book.id)
+
+        return book
 
     # Get all books that have at least one review.
     def withReview(self):
@@ -46,11 +67,11 @@ class Book(models.Model):
 ############### Review ###############
 
 class ReviewMgr(models.Manager):
-    def addNew(self, data):
+    def addNew(self, data, bookID):
         return Review.objects.create(
                 review = data['review'],
                 rating = data['rating'],
-                book = Book.objects.get(id = data['bookID']),
+                book = Book.objects.get(id = bookID),
                 user = User.objects.get(id = data['userID'])
             )
 
