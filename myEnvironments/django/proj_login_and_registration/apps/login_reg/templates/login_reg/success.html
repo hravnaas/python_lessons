@@ -8,7 +8,10 @@
   </head>
   <body>
     <h2>Success! Welcome, {{ firstName }}!</h2>
-    <p class="greenText">Successfully {{ action }}!</p>
+    {% for message in messages %}
+      <!-- Note: this assumes there is ever only one message -->
+      <p class="greenText">Successfully {{ message }}!</p>
+    {% endfor %}
     <a href="{% url 'useradmin:logout' %}">Log out</a>
   </body>
 </html>

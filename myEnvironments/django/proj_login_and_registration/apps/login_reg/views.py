@@ -6,9 +6,9 @@ import bcrypt
 
 # Default route when launching web site.
 def index(request):
-    # If the user is already logged in, go elsewhere
-    # if "userID" in request.session:
-    #     return redirect(reverse('books:index'))
+    # If the user is already logged in, go to the success page.
+    if "userID" in request.session:
+        return redirect(reverse('useradmin:success'))
     return render(request, 'login_reg/index.html')
 
 # Used for registering a new user.
@@ -22,8 +22,10 @@ def register(request):
                 messages.add_message(request, messages.ERROR, err)
             return redirect(reverse('useradmin:index'))
 
-        # Registration succeeded.
-        return render(request, 'login_reg/success.html', { "firstName" : result["user"].first_name, "action" : "registered" })
+        # Registration succeeded. Consider the new user logged in at this point.
+        request.session['userID'] = result["user"].id
+        messages.success(request, "registered")
+        return redirect(reverse('useradmin:success'))
     return redirect(reverse('useradmin:index'))
 
 # Logs in an existing user.
@@ -33,18 +35,24 @@ def login(request):
         if not result["logged_in"]:
             for err in result["errors"]:
                 messages.add_message(request, messages.ERROR, err)
-            return redirect('/')
+            return redirect(reverse('useradmin:index'))
+
         # User is now logged in.
-        request.session['userID'] = result["user"].id #Currently not used.
-        request.session['firstName'] = result["user"].first_name
-        return render(request, 'login_reg/success.html', { "firstName" : result["user"].first_name, "action" : "logged in" })
+        request.session['userID'] = result["user"].id
+        messages.success(request, "logged in")
+        return redirect(reverse('useradmin:success'))
     return redirect(reverse('useradmin:index'))
+
+def success(request):
+    if "userID" not in request.session:
+        # Prevent user from going to the success page if not logged in.
+        return redirect(reverse('useradmin:index'))
+
+    context = { "firstName" : User.objects.get(id = request.session['userID']).first_name }
+    return render(request, 'login_reg/success.html', context)
+
 
 def logout(request):
     if "userID" in request.session:
         del request.session["userID"]
-
-    if "userName" in request.session:
-        del request.session["userName"]
-
     return redirect(reverse('useradmin:index'))
