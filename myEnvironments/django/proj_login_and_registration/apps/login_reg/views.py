@@ -24,7 +24,8 @@ def register(request):
 
         # Registration succeeded. Consider the new user logged in at this point.
         request.session['userID'] = result["user"].id
-        messages.success(request, "registered")
+        # Include below if there is a need to differenciate between registration and login.
+        #messages.success(request, "registered")
         return redirect(reverse('useradmin:success'))
     return redirect(reverse('useradmin:index'))
 
@@ -39,7 +40,8 @@ def login(request):
 
         # User is now logged in.
         request.session['userID'] = result["user"].id
-        messages.success(request, "logged in")
+        # Include below if there is a need to differenciate between registration and login.
+        #messages.success(request, "logged in")
         return redirect(reverse('useradmin:success'))
     return redirect(reverse('useradmin:index'))
 
@@ -47,6 +49,9 @@ def success(request):
     if "userID" not in request.session:
         # Prevent user from going to the success page if not logged in.
         return redirect(reverse('useradmin:index'))
+
+    # Optionally return to index page of another app, for example "poke":
+    # return redirect(reverse('poke:index'))
 
     context = { "firstName" : User.objects.get(id = request.session['userID']).first_name }
     return render(request, 'login_reg/success.html', context)
